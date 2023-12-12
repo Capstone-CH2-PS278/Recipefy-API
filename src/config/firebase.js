@@ -1,5 +1,3 @@
-// services/firebaseService.js
-
 const admin = require("firebase-admin");
 const serviceAccountFirebase = require("../JSON/serviceFirebase.json");
 

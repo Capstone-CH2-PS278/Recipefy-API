@@ -1,9 +1,12 @@
 const { Storage } = require('@google-cloud/storage');
+const path = require('path');
+
+const keyFilename = path.join(__dirname, '../JSON/serviceAccountKey.json');
+
 
 const storage = new Storage({
   projectId: 'recipefy-407103',
-  keyFilename: '../JSON/serviceAccountKey.json', // Ganti dengan path keyfile Anda
+  keyFilename: keyFilename,
 });
-const bucketName = 'recipefy-407103.appspot.com'; // Ganti dengan nama bucket Anda
-
+const bucketName = 'recipefy-407103.appspot.com';
 module.exports = { storage, bucketName };

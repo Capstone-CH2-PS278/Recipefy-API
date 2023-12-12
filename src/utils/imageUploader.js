@@ -11,9 +11,9 @@ const storage = new Storage({
   keyFilename: serviceAccountKeyPath, // Ganti dengan path keyfile Anda
 });
 
-async function uploadImageToStorage(file) {
+async function uploadImageToStorage(file, folder) {
   const bucket = storage.bucket(bucketName);
-  const gcsFileName = Date.now() + '_' + file.hapi.filename;
+  const gcsFileName = `${folder}/${Date.now()}_${file.hapi.filename}`;
   const fileOptions = {
     metadata: {
       contentType: file.hapi.headers['content-type'],
