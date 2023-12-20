@@ -13,13 +13,13 @@ const favoriteController = {
             await connection.query('DELETE FROM favorites WHERE userId = ? AND recipeId = ?', [userId, recipeId]);
             connection.release();
     
-            return h.response({ status: "success", message: 'Recipe removed from favorites' });
+            return h.response({ status: true, message: 'Recipe removed from favorites' });
           } else {
             // Jika data favorit belum tersedia
             await connection.query('INSERT INTO favorites (userId, recipeId) VALUES (?, ?)', [userId, recipeId]);
             connection.release();
     
-            return h.response({ status: "success", message: 'Recipe added to favorites' });
+            return h.response({ status: true, message: 'Recipe added to favorites' });
           }
         } catch (error) {
           return h.response({ status: "fail", message: error.message }).code(500);
