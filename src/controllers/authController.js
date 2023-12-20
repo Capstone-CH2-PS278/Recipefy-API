@@ -1,7 +1,6 @@
 const admin = require('../config/firebase');
 const bcrypt = require('bcryptjs');
-const pool = require('../config/database'); // Menggunakan koneksi database dari database.js
-
+const pool = require('../config/database');
 
 const authController = {
   signup: async (request, h) => {
@@ -28,9 +27,13 @@ const authController = {
       await connection.query(insertQuery, insertValues);
       connection.release();
 
-      return h.response(`User created and saved to MySQL: ${userRecord.uid}`).code(201);
-    } catch (error) {
-      return h.response(error.message).code(500);
+      return h.response({ status:'success', userId : userRecord.uid}).code(201);
+    } catch (error){
+      if (error.code === 'auth/email-already-exists') {
+        return h.response({ status: 'fail', message: 'Email is already registered' }).code(400);
+      } else {
+        return h.response({ status: 'fail', message: error.message }).code(500);
+      }
     }
   },
 
@@ -41,10 +44,10 @@ const authController = {
       const decodedToken = await admin.auth().verifyIdToken(idToken);
       const uid = decodedToken.uid;
 
-      return h.response({ userId: uid }).code(200);
+      return h.response({ status:'success', userId: uid }).code(200);
     } catch (error) {
       console.error('Error during login:', error);
-      return h.response('Invalid credentials').code(401);
+      return h.response({ status:'fail', message: 'Invalid credentials' }).code(401);
     }
   },
 };

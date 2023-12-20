@@ -1,0 +1,549 @@
+{
+	"info": {
+		"_postman_id": "8a973c0b-a28f-4fc5-b847-0dda68069838",
+		"name": "Recipefy API Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30144456"
+	},
+	"item": [
+		{
+			"name": "Add Recipe With Compllete Data Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "aaaaa",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/home/vioart/Pictures/Screenshots/Sertif Javascript-Vio Arvendha.png"
+						},
+						{
+							"key": "note",
+							"value": "Mie goreng seafood adalah hidangan yang memikat selera dengan kombinasi mie yang digoreng secara merata, disatukan dengan kelezatan seafood seperti udang, cumi-cumi, dan potongan ikan.",
+							"type": "text"
+						},
+						{
+							"key": "ingredients",
+							"value": "[\"200 gram mie telur, rebus dan tiriskan\", \"100 gram udang, kupas bersih\", \"100 gram cumi-cumi, potong sesuai selera\", \"100 gram kerang, bersihkan\", \"3 siung bawang putih, cincang halus\", \"2 sendok makan minyak sayur\", \"1 wortel, serut tipis\", \"1 batang daun bawang, iris halus\", \"2 sendok makan kecap manis\", \"1 sendok makan saus tiram\", \"1 sendok teh cabai bubuk (sesuaikan selera)\", \"Garam dan merica secukupnya\"]",
+							"type": "text"
+						},
+						{
+							"key": "tools",
+							"value": "[\"Wajan\", \"Sendok\", \"Mangkok\"]",
+							"type": "text"
+						},
+						{
+							"key": "instructions",
+							"value": "[\"Panaskan minyak sayur di wajan, tumis bawang putih hingga harum.\", \"Tambahkan udang, cumi-cumi, dan kerang. Aduk rata dan masak hingga seafood matang.\", \"Masukkan wortel, aduk sebentar hingga wortel setengah matang.\", \"Tambahkan mie telur yang sudah direbus dan tiriskan. Aduk rata dengan bumbu dan seafood.\", \"Tuangkan kecap manis, saus tiram, cabai bubuk, garam, dan merica. Aduk hingga semua bahan tercampur sempurna.\", \"Masak mie goreng seafood hingga matang dan bumbu meresap.\", \"Taburkan irisan daun bawang di atas mie goreng sebelum disajikan.\"]",
+							"type": "text"
+						},
+						{
+							"key": "likes",
+							"value": "40",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://recipefy-dot-recipefy-407103.ue.r.appspot.com/recipes",
+					"protocol": "https",
+					"host": [
+						"recipefy-dot-recipefy-407103",
+						"ue",
+						"r",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Recipe With Compllete Data",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "id",
+						"value": "13123123",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "name",
+						"value": "sdfd",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "image",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "note",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "ingredients",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "tools",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "instructions",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "like",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Mie",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "note",
+							"value": "Nasi goreng merupakan makanan tradisional Indonesia",
+							"type": "text"
+						},
+						{
+							"key": "ingredients",
+							"value": "[\"Nasi\", \"Bawang Putih\", \"Kecap\"]",
+							"type": "text"
+						},
+						{
+							"key": "tools",
+							"value": "[\"Wajan\", \"Sotil\"]",
+							"type": "text"
+						},
+						{
+							"key": "instructions",
+							"value": "[\"1. Masukkan nasi ke wajan\", \"2. Masukkan kecap \"]",
+							"type": "text"
+						},
+						{
+							"key": "likes",
+							"value": "90",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/recipes/N7IvecaAAeA_oGNX",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"recipes",
+						"N7IvecaAAeA_oGNX"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Recipes (Menu AllRecipe)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://recipefy-dot-recipefy-407103.ue.r.appspot.com/recipes",
+					"protocol": "https",
+					"host": [
+						"recipefy-dot-recipefy-407103",
+						"ue",
+						"r",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Detail Recipes With Correct Id (Menu Detail Recipe)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://recipefy-dot-recipefy-407103.ue.r.appspot.com/recipes/N7IvecaAAeA_oGNX",
+					"protocol": "https",
+					"host": [
+						"recipefy-dot-recipefy-407103",
+						"ue",
+						"r",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"recipes",
+						"N7IvecaAAeA_oGNX"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Recipe With Id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://recipefy-dot-recipefy-407103.ue.r.appspot.com/recipes/Qbwcjhm0XhtkabnE",
+					"protocol": "https",
+					"host": [
+						"recipefy-dot-recipefy-407103",
+						"ue",
+						"r",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"recipes",
+						"Qbwcjhm0XhtkabnE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recipes with Name Recipe (Menu Search)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://recipefy-dot-recipefy-407103.ue.r.appspot.com/search/mie",
+					"protocol": "https",
+					"host": [
+						"recipefy-dot-recipefy-407103",
+						"ue",
+						"r",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"search",
+						"mie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Register (Menu Signup)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"cxa@email.com\",\n  \"username\": \"sdf\",\n  \"password\": \"asdasdasd\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://recipefy-dot-recipefy-407103.ue.r.appspot.com/signup",
+					"protocol": "https",
+					"host": [
+						"recipefy-dot-recipefy-407103",
+						"ue",
+						"r",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Login (Menu Login)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlNzgyM2VmMDFiZDRkMmI5NjI3NDE2NThkMjA4MDdlZmVlNmRlNWMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcmVjaXBlZnktYTE4MDQiLCJhdWQiOiJyZWNpcGVmeS1hMTgwNCIsImF1dGhfdGltZSI6MTcwMjY0NjA4OSwidXNlcl9pZCI6ImhlakVFYWd5aGpXZFBvYTNwb3htdTRtaU5CSDIiLCJzdWIiOiJoZWpFRWFneWhqV2RQb2EzcG94bXU0bWlOQkgyIiwiaWF0IjoxNzAyNjQ2MDkwLCJleHAiOjE3MDI2NDk2OTAsImVtYWlsIjoiMTIzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyIxMjNAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.YsE5AWLWlzmZleLeS1oKtpeKLWkc2oP-AKB_OsR2gmvvOeW1kyhQmVL5TEHfAmKowTRSiHS-_tOJa6o34NEPhWkHQTyok9Z3-e9sP1vANq5SRnggvwIFgVPRQSeXH8ovAEYteA-mCnxozCv4_JE_5ePmS5DuArRRw9a6IUXP-XC2LKFrYq86OyS9UkCXsJ2BtFreQ_47wf_89g_5Oe6-HOTI9jpa7UQcqhsoi14Wqkng67Y_gwAMt-m7pvbn59P7x7ugfiKT1JC0fYOG3hTho1Vmr0FD5-2OCOMfcGHkYBZQlKMH8gA_8oYy5NdPvZ3fq7vT3QNhwozMt39KVgN6Tg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"idToken\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlNzgyM2VmMDFiZDRkMmI5NjI3NDE2NThkMjA4MDdlZmVlNmRlNWMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcmVjaXBlZnktYTE4MDQiLCJhdWQiOiJyZWNpcGVmeS1hMTgwNCIsImF1dGhfdGltZSI6MTcwMjY0NjA4OSwidXNlcl9pZCI6ImhlakVFYWd5aGpXZFBvYTNwb3htdTRtaU5CSDIiLCJzdWIiOiJoZWpFRWFneWhqV2RQb2EzcG94bXU0bWlOQkgyIiwiaWF0IjoxNzAyNjQ2MDkwLCJleHAiOjE3MDI2NDk2OTAsImVtYWlsIjoiMTIzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyIxMjNAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.YsE5AWLWlzmZleLeS1oKtpeKLWkc2oP-AKB_OsR2gmvvOeW1kyhQmVL5TEHfAmKowTRSiHS-_tOJa6o34NEPhWkHQTyok9Z3-e9sP1vANq5SRnggvwIFgVPRQSeXH8ovAEYteA-mCnxozCv4_JE_5ePmS5DuArRRw9a6IUXP-XC2LKFrYq86OyS9UkCXsJ2BtFreQ_47wf_89g_5Oe6-HOTI9jpa7UQcqhsoi14Wqkng67Y_gwAMt-m7pvbn59P7x7ugfiKT1JC0fYOG3hTho1Vmr0FD5-2OCOMfcGHkYBZQlKMH8gA_8oYy5NdPvZ3fq7vT3QNhwozMt39KVgN6Tg\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://recipefy-dot-recipefy-407103.ue.r.appspot.com/login",
+					"protocol": "https",
+					"host": [
+						"recipefy-dot-recipefy-407103",
+						"ue",
+						"r",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Ingredients (Menu Ingredients)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://recipefy-dot-recipefy-407103.ue.r.appspot.com/ingredients",
+					"protocol": "https",
+					"host": [
+						"recipefy-dot-recipefy-407103",
+						"ue",
+						"r",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"ingredients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add data Ingredient",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Daging",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/home/vioart/Pictures/recipe-image/sateAyam.jpeg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://recipefy-dot-recipefy-407103.ue.r.appspot.com/ingredients",
+					"protocol": "https",
+					"host": [
+						"recipefy-dot-recipefy-407103",
+						"ue",
+						"r",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"ingredients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recipe by Ingredient (Manu Filter Recipe)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ingredients\" : [\"Bawang putih\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://recipefy-dot-recipefy-407103.ue.r.appspot.com/filterIngredient",
+					"protocol": "https",
+					"host": [
+						"recipefy-dot-recipefy-407103",
+						"ue",
+						"r",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"filterIngredient"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update data Ingredient",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Bawang putih",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "https://recipefy-dot-recipefy-407103.ue.r.appspot.com/ingredients/3",
+					"protocol": "https",
+					"host": [
+						"recipefy-dot-recipefy-407103",
+						"ue",
+						"r",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"ingredients",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete data Ingredient",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://recipefy-dot-recipefy-407103.ue.r.appspot.com/ingredients/4",
+					"protocol": "https",
+					"host": [
+						"recipefy-dot-recipefy-407103",
+						"ue",
+						"r",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"ingredients",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Favorite Recipe (Fitur Icon Favorite)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userId\": \"sWV3I7RDEaVGs422J2tGkNdZ4xI2\",\n  \"recipeId\": \"Fz1Ll8y_yKlw85id\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://recipefy-dot-recipefy-407103.ue.r.appspot.com/favorite",
+					"protocol": "https",
+					"host": [
+						"recipefy-dot-recipefy-407103",
+						"ue",
+						"r",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"favorite"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get data favorite (Menu Favorite)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://recipefy-dot-recipefy-407103.ue.r.appspot.com/favorite/sWV3I7RDEaVGs422J2tGkNdZ4xI2",
+					"protocol": "https",
+					"host": [
+						"recipefy-dot-recipefy-407103",
+						"ue",
+						"r",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"favorite",
+						"sWV3I7RDEaVGs422J2tGkNdZ4xI2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

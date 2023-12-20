@@ -5,39 +5,39 @@ const { uploadImageToStorage } = require('../utils/imageUploader');
 // Controller untuk operasi terkait Ingredient
 const ingredientsController = {
     createIngredient: async (request, h) => {
-        try {
-              
-            const {
-                name,
-                image,        
-              } = request.payload;
+      try {
             
-            if (!name) {
-              const response = h.response({
-                status : 'fail',
-                message : "Gagal menambahkan data ingredient. Mohon isi nama ingredient",
-              });
-              response.code(400);
-              return response;
-            }
+          const {
+              name,
+              image,        
+            } = request.payload;
+          
+          if (!name) {
+            const response = h.response({
+              status : 'fail',
+              message : "Failed to add ingredient data. Please provide the ingredient name.",
+            });
+            response.code(400);
+            return response;
+          }
 
-            if (!image || !image.hapi.filename) {
-                return h.response({
-                  status: 'fail',
-                  message: 'Gagal menambahkan data ingredient. Mohon sertakan gambar ingredient',
-                }).code(400);
-            }             
-            
-            const imageUrl = await uploadImageToStorage(image, 'images/ingredient');
-            const connection = await pool.getConnection();
+          if (!image || !image.hapi.filename) {
+              return h.response({
+                status: 'fail',
+                message: 'Failed to add ingredient data. Please include the ingredient image.',
+              }).code(400);
+          }             
+          
+          const imageUrl = await uploadImageToStorage(image, 'images/ingredient');
+          const connection = await pool.getConnection();
 
-            await connection.query('INSERT INTO data_ingredients (name_ingredient, image_url) VALUES (?, ?)', [name, imageUrl]);
-            connection.release();
-    
-            return h.response({ message: 'Data ingredients berhasil disimpan', imageUrl });
-        } catch (error) {
-            return h.response({ error: error.message }).code(500);
-        }
+          await connection.query('INSERT INTO data_ingredients (name_ingredient, image_url) VALUES (?, ?)', [name, imageUrl]);
+          connection.release();
+
+          return h.response({ status: "success", message: 'Ingredient data has been successfully saved', imageUrl });
+      } catch (error) {
+          return h.response({ status: "fail", message: error.message }).code(500);
+      }
     },
 
     getAllIngredient: async (request, h) => {
@@ -46,9 +46,9 @@ const ingredientsController = {
           const [data] = await connection.query('SELECT * FROM data_ingredients');
           connection.release();
     
-          return h.response({ ingredients: data });
+          return h.response({ status: "success", ingredients: data });
         } catch (error) {
-          return h.response({ error: error.message }).code(500);
+          return h.response({ status: "fail", message: error.message }).code(500);
         }
     },
 
@@ -70,7 +70,7 @@ const ingredientsController = {
             connection.release();
             return h.response({
               status: 'fail',
-              message: 'Ingredients tidak ditemukan'
+              message: 'Ingredients not found.'
             }).code(404);
           }
           
@@ -96,13 +96,13 @@ const ingredientsController = {
           if (updateResult.affectedRows === 0) {
             return h.response({
               status: 'fail',
-              message: 'Tidak ada perubahan pada data ingredients'
+              message: 'There are no changes in the ingredients data.'
             }).code(400);
           }
       
-          return h.response({ message: 'Data ingredients berhasil diupdate' });
+          return h.response({ status: "success", message: 'Ingredient data successfully updated.' });
         } catch (error) {
-          return h.response({ error: error.message }).code(500);
+          return h.response({ status: "fail", message: error.message }).code(500);
         }
     },
 
@@ -120,7 +120,7 @@ const ingredientsController = {
             connection.release();
             return h.response({
               status: 'fail',
-              message: 'Data ingredients tidak ditemukan'
+              message: 'Data ingredients not found.'
             }).code(404);
           }
       
@@ -138,9 +138,9 @@ const ingredientsController = {
           await file.delete();
           }
       
-          return h.response({ message: 'Data ingredients berhasil dihapus' });
+          return h.response({ status: "success", message: 'Ingredient data successfully deleted' });
         } catch (error) {
-          return h.response({ error: error.message }).code(500);
+          return h.response({ status: "fail", message: error.message }).code(500);
         }
     },
 
@@ -156,9 +156,9 @@ const ingredientsController = {
     
           connection.release();
     
-          return h.response({ recipes: data });
+          return h.response({ status: "success", recipes: data });
         } catch (error) {
-          return h.response({ error: error.message }).code(500);
+          return h.response({ status: "fail", message: error.message }).code(500);
         }
     }
 }

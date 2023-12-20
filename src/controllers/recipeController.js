@@ -1,11 +1,8 @@
-// controllers/recipeController.js
-
 const pool = require('../config/database');
 const { uploadImageToStorage } = require('../utils/imageUploader');
 const { storage, bucketName } = require('../config/storage');
 const { nanoid } = require('nanoid');
 
-// Controller untuk operasi terkait resep
 const recipeController = {
   createRecipe: async (request, h) => {
     try {
@@ -24,7 +21,7 @@ const recipeController = {
       if (!name) {
         const response = h.response({
           status : 'fail',
-          message : "Gagal menambahkan resep. Mohon isi nama resep",
+          message : 'Failed to add recipe. Please provide the recipe name.',
         });
         response.code(400);
         return response;
@@ -33,7 +30,7 @@ const recipeController = {
       if (!image || !image.hapi.filename) {
           return h.response({
             status: 'fail',
-            message: 'Gagal menambahkan resep. Mohon sertakan gambar resep',
+            message: 'Failed to add recipe. Please include the recipe image.',
           }).code(400);
       }             
       
@@ -43,9 +40,9 @@ const recipeController = {
       await connection.query('INSERT INTO data_recipe (id, name, image_url, note, ingredients, tools, instructions, likes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [id, name, imageUrl, note, ingredients, tools, instructions, likes]);
       connection.release();
 
-      return h.response({ message: 'Data makanan berhasil disimpan', imageUrl });
+      return h.response({ status: 'success', message: 'Recipe data successfully saved', imageUrl });
     } catch (error) {
-      return h.response({ error: error.message }).code(500);
+      return h.response({ status: 'fail', message: error.message }).code(500);
     }
   },
 
@@ -55,9 +52,9 @@ const recipeController = {
       const [rows] = await connection.query('SELECT * FROM data_recipe');
       connection.release();
 
-      return h.response({ recipes: rows });
+      return h.response({ status: 'success', recipes: rows });
     } catch (error) {
-      return h.response({ error: error.message }).code(500);
+      return h.response({ status: 'fail', message: error.message }).code(500);
   }
   },
 
@@ -72,13 +69,13 @@ const recipeController = {
       if (result.length === 0) {
         return h.response({
           status: 'fail',
-          message: 'Resep tidak ditemukan'
+          message: 'Recipe not found'
         }).code(404);
       }
 
-      return h.response({ recipe: result[0] });
+      return h.response({ status: "success", recipe: result[0] });
     } catch (error) {
-      return h.response({ error: error.message }).code(500);
+      return h.response({ status: 'fail', message: error.message }).code(500);
     }
   },
 
@@ -105,7 +102,7 @@ const recipeController = {
         connection.release();
         return h.response({
           status: 'fail',
-          message: 'Resep tidak ditemukan'
+          message: 'Recipe not found'
         }).code(404);
       }
       
@@ -136,13 +133,13 @@ const recipeController = {
       if (updateResult.affectedRows === 0) {
         return h.response({
           status: 'fail',
-          message: 'Tidak ada perubahan pada resep'
+          message: 'No changes were made to the recipe'
         }).code(400);
       }
   
-      return h.response({ message: 'Data resep berhasil diupdate' });
+      return h.response({ status: 'success', message: 'Data resep berhasil diupdate' });
     } catch (error) {
-      return h.response({ error: error.message }).code(500);
+      return h.response({ status: 'fail', message: error.message }).code(500);
     }
   },
 
@@ -160,7 +157,7 @@ const recipeController = {
         connection.release();
         return h.response({
           status: 'fail',
-          message: 'Resep tidak ditemukan'
+          message: 'Recipe not found'
         }).code(404);
       }
   
@@ -179,9 +176,9 @@ const recipeController = {
       await connection.query('DELETE FROM data_recipe WHERE id = ?', [recipesId]);
       connection.release();
   
-      return h.response({ message: 'Data resep berhasil dihapus' });
+      return h.response({ status: 'success', message: 'Recipe data successfully deleted' });
     } catch (error) {
-      return h.response({ error: error.message }).code(500);
+      return h.response({ status: 'fail', message: error.message }).code(500);
     }
   },
 
@@ -193,9 +190,9 @@ const recipeController = {
       const [data] = await connection.query('SELECT * FROM data_recipe WHERE name LIKE ?', [`%${namaRecipe}%`]);
       connection.release();
 
-      return h.response({ recipes: data });
+      return h.response({ status: 'success', recipes: data });
     } catch (error) {
-      return h.response({ error: error.message }).code(500);
+      return h.response({ status: 'fail', message: error.message }).code(500);
     }
   }
 };

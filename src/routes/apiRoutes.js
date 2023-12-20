@@ -1,5 +1,3 @@
-// routes/apiRoutes.js
-
 const Joi = require('@hapi/joi');
 const authController = require('../controllers/authController')
 const recipeController = require('../controllers/recipeController');
@@ -7,27 +5,37 @@ const ingredientsController = require('../controllers/ingredientController')
 const favoriteController = require('../controllers/favoriteController')
 
 const apiRoutes = [
+  // API Info
   {
     method: 'GET',
     path: '/',
     handler: async (request, h) => {
-      // Periksa token dari Authorization header
-      const idToken = request.headers.authorization;
-      if (!idToken) {
-        return h.response('Unauthorized').code(401);
-      }
-
-      // Verifikasi token menggunakan Firebase Admin SDK
       try {
-        const decodedToken = await admin.auth().verifyIdToken(idToken);
-        const userId = decodedToken.uid; // Dapatkan userId dari token yang diverifikasi
-        return { userId };
+        const welcomeMessage = 'Welcome to our Recipe API!'; 
+        return h.response({ status : "success", message: welcomeMessage }).code(200);
       } catch (error) {
-        console.error('Error verifying token:', error);
-        return h.response('Unauthorized').code(401);
+        return h.response({ error: 'Failed to retrieve homepage.' }).code(500);
       }
     }
   },
+  {
+    method: 'GET',
+    path: '/api/v1',
+    handler: async (request, h) => {
+      try {
+        const apiInfo = {
+          name: 'Recipefy API',
+          version: '1.0.0',
+          description:
+            'A RESTful API for managing recipes, ingredients, and favorites, providing endpoints for creating, updating, deleting, and searching recipes along with ingredient management and favorite functionality.'
+        };
+        return h.response(apiInfo).code(200);
+      } catch (error) {
+        return h.response({ error: 'Failed to retrieve API information.' }).code(500);
+      }
+    }
+  },
+  // API Auth
   {
     method: 'POST',
     path: '/signup',
@@ -51,24 +59,9 @@ const apiRoutes = [
   {
     method: 'POST',
     path: '/login',
-    options: {
-      payload: {
-          output: 'stream',
-          parse: true,
-          multipart: true,
-      },
-      validate: {
-          payload: Joi.object({
-            idToken: Joi.string().required(),
-            }).options({ abortEarly: false }),
-            failAction: async (request, h, err) => {
-            throw err;
-          },
-      },
-    },
     handler: authController.login,
   },
-  // API Recipe
+  // API Recipes
   {
     method: 'POST',
     path: '/recipes',
@@ -253,14 +246,13 @@ const apiRoutes = [
     },
     handler: ingredientsController.filterIngredient,
   },
-  // API favorite
+  // API Favorite
   {
     method: 'POST',
     path: '/favorite',
     options: {
       payload: {
         multipart: true,
-        allow: 'multipart/form-data',
       },
       validate: {
         payload: Joi.object({

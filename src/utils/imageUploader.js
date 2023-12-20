@@ -1,5 +1,3 @@
-// utils/imageUploader.js
-
 const { Storage } = require('@google-cloud/storage');
 const { bucketName } = require('../config/storage');
 const path = require('path');
@@ -8,7 +6,7 @@ const serviceAccountKeyPath = path.join(__dirname, '..', 'JSON', 'serviceAccount
 
 const storage = new Storage({
   projectId: 'recipefy-407103',
-  keyFilename: serviceAccountKeyPath, // Ganti dengan path keyfile Anda
+  keyFilename: serviceAccountKeyPath,
 });
 
 async function uploadImageToStorage(file, folder) {

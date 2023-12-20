@@ -3,12 +3,11 @@ const apiRoutes = require('./routes/apiRoutes');
 
 const init = async () => {
   const server = Hapi.server({
-    port: 8080,
+    port: process.env.PORT || 8000,
     host: 'localhost',
   });
 
-  // Tambahkan rute API ke server
-  apiRoutes.forEach(route => server.route(route));
+  apiRoutes.forEach((route) => server.route(route));
 
   await server.start();
   console.log('Server running on %s', server.info.uri);
