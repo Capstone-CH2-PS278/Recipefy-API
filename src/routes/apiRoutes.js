@@ -11,8 +11,8 @@ const apiRoutes = [
     path: '/',
     handler: async (request, h) => {
       try {
-        const welcomeMessage = 'Welcome to our Recipe API!'; 
-        return h.response({ status : "success", message: welcomeMessage }).code(200);
+        const welcomeMessage = 'Welcome to our Recipefy API!'; 
+        return h.response({ status : 'success', message: welcomeMessage }).code(200);
       } catch (error) {
         return h.response({ error: 'Failed to retrieve homepage.' }).code(500);
       }
@@ -81,7 +81,6 @@ const apiRoutes = [
               ingredients: Joi.array().items(Joi.string()).required().single(),
               tools: Joi.array().items(Joi.string()).required().single(),
               instructions: Joi.array().items(Joi.string()).required().single(),
-              likes: Joi.number().integer().allow(null).label('likes'),
               }).options({ abortEarly: false }),
               failAction: async (request, h, err) => {
               throw err;
@@ -94,6 +93,11 @@ const apiRoutes = [
     method: 'GET',
     path: '/recipes',
     handler: recipeController.getAllRecipes,
+  },
+  {
+    method: 'GET',
+    path: '/recommendation',
+    handler: recipeController.recomendationRecipe,
   },
   {
     method: 'GET',
@@ -129,7 +133,6 @@ const apiRoutes = [
             ingredients: Joi.array().items(Joi.string()).required().single(),
             tools: Joi.array().items(Joi.string()).required().single(),
             instructions: Joi.array().items(Joi.string()).required().single(),
-            likes: Joi.number().integer().allow(null).label('likes'),
             }).options({ abortEarly: false }),
             failAction: async (request, h, err) => {
             throw err;
@@ -246,7 +249,7 @@ const apiRoutes = [
     },
     handler: ingredientsController.filterIngredient,
   },
-  // API Favorite
+  // API favorite
   {
     method: 'POST',
     path: '/favorite',

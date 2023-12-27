@@ -3,6 +3,7 @@ const { uploadImageToStorage } = require('../utils/imageUploader');
 const { storage, bucketName } = require('../config/storage');
 const { nanoid } = require('nanoid');
 
+// Controller untuk operasi terkait resep
 const recipeController = {
   createRecipe: async (request, h) => {
     try {
@@ -12,8 +13,7 @@ const recipeController = {
           note,
           ingredients,
           tools,
-          instructions,
-          likes,           
+          instructions,   
         } = request.payload;
       
       const id = nanoid(16);
@@ -21,7 +21,7 @@ const recipeController = {
       if (!name) {
         const response = h.response({
           status : 'fail',
-          message : 'Failed to add recipe. Please provide the recipe name.',
+          message : 'Failed to add recipe. Please provide the recipe name',
         });
         response.code(400);
         return response;
@@ -30,14 +30,14 @@ const recipeController = {
       if (!image || !image.hapi.filename) {
           return h.response({
             status: 'fail',
-            message: 'Failed to add recipe. Please include the recipe image.',
+            message: 'Failed to add recipe. Please include the recipe image',
           }).code(400);
       }             
       
       const imageUrl = await uploadImageToStorage(image, 'images/food');
       
       const connection = await pool.getConnection();
-      await connection.query('INSERT INTO data_recipe (id, name, image_url, note, ingredients, tools, instructions, likes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [id, name, imageUrl, note, ingredients, tools, instructions, likes]);
+      await connection.query('INSERT INTO data_recipe (id, name, image_url, note, ingredients, tools, instructions, updateTime) VALUES (?, ?, ?, ?, ?, ?, ?, UNIX_TIMESTAMP())', [id, name, imageUrl, note, ingredients, tools, instructions]);
       connection.release();
 
       return h.response({ status: 'success', message: 'Recipe data successfully saved', imageUrl });
@@ -73,7 +73,7 @@ const recipeController = {
         }).code(404);
       }
 
-      return h.response({ status: "success", recipe: result[0] });
+      return h.response({ status: 'success', recipe: result[0] });
     } catch (error) {
       return h.response({ status: 'fail', message: error.message }).code(500);
     }
@@ -89,7 +89,6 @@ const recipeController = {
         ingredients,
         tools,
         instructions,
-        likes,
       } = request.payload;
   
       const connection = await pool.getConnection();
@@ -124,8 +123,8 @@ const recipeController = {
       
 
       // Lakukan proses update nama resep ke database
-      const [updateResult] = await connection.query('UPDATE data_recipe SET name = ?, image_url = ?, note = ?, ingredients = ?, tools = ?, instructions = ?, likes = ? WHERE id = ?',
-      [name, imageUrl, note, ingredients, tools, instructions, likes, recipesId]);
+      const [updateResult] = await connection.query('UPDATE data_recipe SET name = ?, image_url = ?, note = ?, ingredients = ?, tools = ?, instructions = ?, updateTime = UNIX_TIMESTAMP() WHERE id = ?',
+      [name, imageUrl, note, ingredients, tools, instructions, recipesId]);
 
       connection.release();
   
@@ -194,7 +193,20 @@ const recipeController = {
     } catch (error) {
       return h.response({ status: 'fail', message: error.message }).code(500);
     }
-  }
+  },
+
+  recomendationRecipe : async (request, h) => {
+    try {
+      const connection = await pool.getConnection();
+      
+      const [latestRecipes] = await connection.query('SELECT * FROM data_recipe ORDER BY updateTime DESC LIMIT 3');
+      connection.release();
+
+      return h.response({ status: 'success', recipes: latestRecipes });
+    } catch (error) {
+      return h.response({ status: 'fail', error: error.message }).code(500);
+    }
+  },
 };
 
 module.exports = recipeController;

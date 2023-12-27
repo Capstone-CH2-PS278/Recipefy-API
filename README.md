@@ -58,7 +58,7 @@ Response: JSON object with user details or error message.
 | `ingredients`      | `array of Strings` |
 | `tools`      | `array of Strings` |
 | `instructions`      | `Array of Strings` |
-| `likes`      | `Integer` |
+| `updateTime`      | `Integer` |
 
 Response: Success message and recipe details.
 
@@ -94,7 +94,7 @@ Response: Details of the specified recipe.
 | `ingredients`      | `array of Strings` |
 | `tools`      | `array of Strings` |
 | `instructions`      | `Array of Strings` |
-| `likes`      | `Integer` |
+| `updateTime`      | `Integer` |
 
 Response: Success message and updated recipe details.
 
@@ -176,7 +176,7 @@ Response: Array of recipes matching the ingredients.
 ```http
   POST/favorite
 ```
-| Parameter | Type     |
+| Body | Type     |
 | :-------- | :------- |
 | `userId`      | `string` |
 | `recipeId`      | `string` |

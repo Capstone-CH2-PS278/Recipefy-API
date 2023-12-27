@@ -22,7 +22,7 @@
 						{
 							"key": "image",
 							"type": "file",
-							"src": "/home/vioart/Pictures/Screenshots/Sertif Javascript-Vio Arvendha.png"
+							"src": "/home/vioart/Music/download.jpeg"
 						},
 						{
 							"key": "note",
@@ -42,11 +42,6 @@
 						{
 							"key": "instructions",
 							"value": "[\"Panaskan minyak sayur di wajan, tumis bawang putih hingga harum.\", \"Tambahkan udang, cumi-cumi, dan kerang. Aduk rata dan masak hingga seafood matang.\", \"Masukkan wortel, aduk sebentar hingga wortel setengah matang.\", \"Tambahkan mie telur yang sudah direbus dan tiriskan. Aduk rata dengan bumbu dan seafood.\", \"Tuangkan kecap manis, saus tiram, cabai bubuk, garam, dan merica. Aduk hingga semua bahan tercampur sempurna.\", \"Masak mie goreng seafood hingga matang dan bumbu meresap.\", \"Taburkan irisan daun bawang di atas mie goreng sebelum disajikan.\"]",
-							"type": "text"
-						},
-						{
-							"key": "likes",
-							"value": "40",
 							"type": "text"
 						}
 					]
@@ -133,7 +128,7 @@
 						{
 							"key": "image",
 							"type": "file",
-							"src": []
+							"src": "/home/vioart/Downloads/logo-recipefy.png"
 						},
 						{
 							"key": "note",
@@ -154,24 +149,22 @@
 							"key": "instructions",
 							"value": "[\"1. Masukkan nasi ke wajan\", \"2. Masukkan kecap \"]",
 							"type": "text"
-						},
-						{
-							"key": "likes",
-							"value": "90",
-							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://localhost:8080/recipes/N7IvecaAAeA_oGNX",
-					"protocol": "http",
+					"raw": "https://recipefy-dot-recipefy-407103.ue.r.appspot.com/recipes/1Dkby4ZZzkLbbG_j",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"recipefy-dot-recipefy-407103",
+						"ue",
+						"r",
+						"appspot",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"recipes",
-						"N7IvecaAAeA_oGNX"
+						"1Dkby4ZZzkLbbG_j"
 					]
 				}
 			},
@@ -372,13 +365,13 @@
 					"formdata": [
 						{
 							"key": "name",
-							"value": "Daging",
+							"value": "Milk",
 							"type": "text"
 						},
 						{
 							"key": "image",
 							"type": "file",
-							"src": "/home/vioart/Pictures/recipe-image/sateAyam.jpeg"
+							"src": "/home/vioart/Bangkit/Ingredient/susu.jpeg"
 						}
 					]
 				},
@@ -474,7 +467,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://recipefy-dot-recipefy-407103.ue.r.appspot.com/ingredients/4",
+					"raw": "https://recipefy-dot-recipefy-407103.ue.r.appspot.com/ingredients/5",
 					"protocol": "https",
 					"host": [
 						"recipefy-dot-recipefy-407103",
@@ -485,7 +478,7 @@
 					],
 					"path": [
 						"ingredients",
-						"4"
+						"5"
 					]
 				}
 			},
@@ -540,6 +533,28 @@
 					"path": [
 						"favorite",
 						"sWV3I7RDEaVGs422J2tGkNdZ4xI2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recomendation (Menu Recomendation)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://recipefy-dot-recipefy-407103.ue.r.appspot.com/recommendation",
+					"protocol": "https",
+					"host": [
+						"recipefy-dot-recipefy-407103",
+						"ue",
+						"r",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"recommendation"
 					]
 				}
 			},
