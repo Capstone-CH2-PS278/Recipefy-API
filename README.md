@@ -17,11 +17,22 @@ https://recipefy-dot-recipefy-407103.ue.r.appspot.com/
     Response: { status: "success", message: "Welcome to our Recipe API!" }
 ```
 
+#### Informations
+
+```http
+  GET /api/v1
+    {
+    "name": "Recipefy API",
+    "version": "1.0.0",
+    "description": "A RESTful API for managing recipes, ingredients, and favorites, providing endpoints for creating, updating, deleting, and searching recipes along with ingredient management and favorite functionality."
+    }
+```
+
 #### Authentication
 - Signup
 
 ```http
-  POST/signup
+  POST /signup
 ```
 
 | Body | Type     |
@@ -35,7 +46,7 @@ Response: JSON object with user details or error message.
 - Login
 
 ```http
-  POST/login
+  POST /login
 ```
 
 | Body | Type     |
@@ -47,7 +58,7 @@ Response: JSON object with user details or error message.
 - Create Recipe
 
 ```http
-  POST/recipes
+  POST /recipes
 ```
 
 | Body | Type     |
@@ -64,7 +75,7 @@ Response: Success message and recipe details.
 
 - Get All Recipes
 ```http
-  GET/recipes
+  GET /recipes
 ```
 Response: Array of all recipes.
 
@@ -78,9 +89,27 @@ Response: Array of all recipes.
 
 Response: Details of the specified recipe.
 
+- Create Recipe
+
+```http
+  GET /recommendation
+```
+
+| Body | Type     |
+| :-------- | :------- |
+| `name`      | `string` |
+| `image`      | `file` |
+| `note`      | `string` |
+| `ingredients`      | `array of Strings` |
+| `tools`      | `array of Strings` |
+| `instructions`      | `Array of Strings` |
+| `updateTime`      | `Integer` |
+
+Response: Success message and recipe details.
+
 - Update Recipe
 ```http
-  PUT/recipes/{recipesId}
+  PUT /recipes/{recipesId}
 ```
 | Parameter | Type     |
 | :-------- | :------- |
@@ -100,7 +129,7 @@ Response: Success message and updated recipe details.
 
 - Delete Recipe
 ```http
-  DELETE/recipes/{recipesId}
+  DELETE /recipes/{recipesId}
 ```
 | Parameter | Type     |
 | :-------- | :------- |
@@ -110,7 +139,7 @@ Response: Success message.
 
 - Search Recipe
 ```http
-  GET/search/{namaRecipe}
+  GET /search/{namaRecipe}
 ```
 | Parameter | Type     |
 | :-------- | :------- |
@@ -121,13 +150,13 @@ Response: Array of recipes matching the search criteria.
 #### Ingredients
 - Get All Ingredients
 ```http
-  GET/ingredients
+  GET /ingredients
 ```
 Response: Array of all ingredients.
 
 - Create Ingredient
 ```http
-  POST/ingredients
+  POST /ingredients
 ```
 | Body | Type     |
 | :-------- | :------- |
@@ -138,7 +167,7 @@ Response: Success message and ingredient details.
 
 - Update Ingredient
 ```http
-  POST/ingredients/{id}
+  POST /ingredients/{id}
 ```
 | Parameter | Type     |
 | :-------- | :------- |
@@ -153,7 +182,7 @@ Response: Success message and updated ingredient details.
 
 - Delete Ingredient
 ```http
-  PUT/ingredients/{id}
+  PUT /ingredients/{id}
 ```
 | Parameter | Type     |
 | :-------- | :------- |
@@ -163,7 +192,7 @@ Response: Success message.
 
 - Filter Ingredient
 ```http
-  POST/filterIngredient
+  POST /filterIngredient
 ```
 | Body | Type     |
 | :-------- | :------- |
@@ -174,7 +203,7 @@ Response: Array of recipes matching the ingredients.
 #### Favorites
 - Add Favorites
 ```http
-  POST/favorite
+  POST /favorite
 ```
 | Body | Type     |
 | :-------- | :------- |
@@ -185,7 +214,7 @@ Response: Success message.
 
 - Get Favorites
 ```http
-  GET/favorite/{userId}
+  GET /favorite/{userId}
 ```
 | Parameter | Type     |
 | :-------- | :------- |
