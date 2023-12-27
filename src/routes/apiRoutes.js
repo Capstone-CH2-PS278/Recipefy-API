@@ -1,8 +1,8 @@
 const Joi = require('@hapi/joi');
-const authController = require('../controllers/authController')
+const authController = require('../controllers/authController');
 const recipeController = require('../controllers/recipeController');
-const ingredientsController = require('../controllers/ingredientController')
-const favoriteController = require('../controllers/favoriteController')
+const ingredientsController = require('../controllers/ingredientController');
+const favoriteController = require('../controllers/favoriteController');
 
 const apiRoutes = [
   // API Info
@@ -11,12 +11,12 @@ const apiRoutes = [
     path: '/',
     handler: async (request, h) => {
       try {
-        const welcomeMessage = 'Welcome to our Recipefy API!'; 
-        return h.response({ status : 'success', message: welcomeMessage }).code(200);
+        const welcomeMessage = 'Welcome to our Recipefy API!';
+        return h.response({ status: 'success', message: welcomeMessage }).code(200);
       } catch (error) {
         return h.response({ error: 'Failed to retrieve homepage.' }).code(500);
       }
-    }
+    },
   },
   {
     method: 'GET',
@@ -27,13 +27,13 @@ const apiRoutes = [
           name: 'Recipefy API',
           version: '1.0.0',
           description:
-            'A RESTful API for managing recipes, ingredients, and favorites, providing endpoints for creating, updating, deleting, and searching recipes along with ingredient management and favorite functionality.'
+            'A RESTful API for managing recipes, ingredients, and favorites, providing endpoints for creating, updating, deleting, and searching recipes along with ingredient management and favorite functionality.',
         };
         return h.response(apiInfo).code(200);
       } catch (error) {
         return h.response({ error: 'Failed to retrieve API information.' }).code(500);
       }
-    }
+    },
   },
   // API Auth
   {
@@ -66,26 +66,26 @@ const apiRoutes = [
     method: 'POST',
     path: '/recipes',
     options: {
-        payload: {
-            output: 'stream',
-            parse: true,
-            allow: 'multipart/form-data',
-            multipart: true,
-            maxBytes: 10 * 1024 * 1024,
+      payload: {
+        output: 'stream',
+        parse: true,
+        allow: 'multipart/form-data',
+        multipart: true,
+        maxBytes: 10 * 1024 * 1024,
+      },
+      validate: {
+        payload: Joi.object({
+          name: Joi.string().allow('').label('name'),
+          image: Joi.any().required(),
+          note: Joi.string().allow('').label('note'),
+          ingredients: Joi.array().items(Joi.string()).required().single(),
+          tools: Joi.array().items(Joi.string()).required().single(),
+          instructions: Joi.array().items(Joi.string()).required().single(),
+        }).options({ abortEarly: false }),
+        failAction: async (request, h, err) => {
+          throw err;
         },
-        validate: {
-            payload: Joi.object({
-              name: Joi.string().allow('').label('name'),
-              image: Joi.any().required(),
-              note: Joi.string().allow('').label('note'),
-              ingredients: Joi.array().items(Joi.string()).required().single(),
-              tools: Joi.array().items(Joi.string()).required().single(),
-              instructions: Joi.array().items(Joi.string()).required().single(),
-              }).options({ abortEarly: false }),
-              failAction: async (request, h, err) => {
-              throw err;
-            },
-        },
+      },
     },
     handler: recipeController.createRecipe,
   },
@@ -105,9 +105,9 @@ const apiRoutes = [
     options: {
       validate: {
         params: Joi.object({
-          recipesId: Joi.string().required()
-        })
-      }
+          recipesId: Joi.string().required(),
+        }),
+      },
     },
     handler: recipeController.getRecipeById,
   },
@@ -124,21 +124,20 @@ const apiRoutes = [
       },
       validate: {
         params: Joi.object({
-          recipesId: Joi.string().required()
+          recipesId: Joi.string().required(),
         }),
         payload: Joi.object({
-            name: Joi.string().allow('').label('name'),
-            image: Joi.any().optional(),
-            note: Joi.string().allow('').label('note'),
-            ingredients: Joi.array().items(Joi.string()).required().single(),
-            tools: Joi.array().items(Joi.string()).required().single(),
-            instructions: Joi.array().items(Joi.string()).required().single(),
-            }).options({ abortEarly: false }),
-            failAction: async (request, h, err) => {
-            throw err;
-          },
-
-      }
+          name: Joi.string().allow('').label('name'),
+          image: Joi.any().optional(),
+          note: Joi.string().allow('').label('note'),
+          ingredients: Joi.array().items(Joi.string()).required().single(),
+          tools: Joi.array().items(Joi.string()).required().single(),
+          instructions: Joi.array().items(Joi.string()).required().single(),
+        }).options({ abortEarly: false }),
+        failAction: async (request, h, err) => {
+          throw err;
+        },
+      },
     },
     handler: recipeController.updateRecipeById,
   },
@@ -148,9 +147,9 @@ const apiRoutes = [
     options: {
       validate: {
         params: Joi.object({
-          recipesId: Joi.string().required()
-        })
-      }
+          recipesId: Joi.string().required(),
+        }),
+      },
     },
     handler: recipeController.deleteRecipeById,
   },
@@ -160,9 +159,9 @@ const apiRoutes = [
     options: {
       validate: {
         params: Joi.object({
-          namaRecipe: Joi.string().required()
-        })
-      }
+          namaRecipe: Joi.string().required(),
+        }),
+      },
     },
     handler: recipeController.searchRecipe,
   },
@@ -176,22 +175,22 @@ const apiRoutes = [
     method: 'POST',
     path: '/ingredients',
     options: {
-        payload: {
-            output: 'stream',
-            parse: true,
-            allow: 'multipart/form-data',
-            multipart: true,
-            maxBytes: 10 * 1024 * 1024,
+      payload: {
+        output: 'stream',
+        parse: true,
+        allow: 'multipart/form-data',
+        multipart: true,
+        maxBytes: 10 * 1024 * 1024,
+      },
+      validate: {
+        payload: Joi.object({
+          name: Joi.string().allow('').label('name'),
+          image: Joi.any().required(),
+        }).options({ abortEarly: false }),
+        failAction: async (request, h, err) => {
+          throw err;
         },
-        validate: {
-            payload: Joi.object({
-              name: Joi.string().allow('').label('name'),
-              image: Joi.any().required(),
-              }).options({ abortEarly: false }),
-              failAction: async (request, h, err) => {
-              throw err;
-            },
-        },
+      },
     },
     handler: ingredientsController.createIngredient,
   },
@@ -208,17 +207,16 @@ const apiRoutes = [
       },
       validate: {
         params: Joi.object({
-          id: Joi.string().required()
+          id: Joi.string().required(),
         }),
         payload: Joi.object({
-            name: Joi.string().allow('').label('name'),
-            image: Joi.any().optional(),
-            }).options({ abortEarly: false }),
-            failAction: async (request, h, err) => {
-            throw err;
-          },
-
-      }
+          name: Joi.string().allow('').label('name'),
+          image: Joi.any().optional(),
+        }).options({ abortEarly: false }),
+        failAction: async (request, h, err) => {
+          throw err;
+        },
+      },
     },
     handler: ingredientsController.updateRecipe,
   },
@@ -228,9 +226,9 @@ const apiRoutes = [
     options: {
       validate: {
         params: Joi.object({
-          id: Joi.string().required()
-        })
-      }
+          id: Joi.string().required(),
+        }),
+      },
     },
     handler: ingredientsController.deleteIngredient,
   },
@@ -240,7 +238,7 @@ const apiRoutes = [
     options: {
       validate: {
         payload: Joi.object({
-          ingredients: Joi.array().items(Joi.string()).required().min(1).label('ingredients'),
+          ingredients: Joi.array().items(Joi.string()).required().min(1),
         }),
         failAction: async (request, h, err) => {
           throw err;
@@ -280,8 +278,7 @@ const apiRoutes = [
       },
     },
     handler: favoriteController.getFavorite,
-  }
-
+  },
 
 ];
 

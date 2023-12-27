@@ -1,6 +1,6 @@
+const path = require('path');
 const { Storage } = require('@google-cloud/storage');
 const { bucketName } = require('../config/storage');
-const path = require('path');
 
 const serviceAccountKeyPath = path.join(__dirname, '..', 'JSON', 'serviceAccountKey.json');
 

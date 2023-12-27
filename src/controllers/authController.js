@@ -1,5 +1,5 @@
-const admin = require('../config/firebase');
 const bcrypt = require('bcryptjs');
+const admin = require('../config/firebase');
 const pool = require('../config/database');
 
 const authController = {
@@ -23,17 +23,22 @@ const authController = {
 
       const connection = await pool.getConnection();
       const insertQuery = 'INSERT INTO users (userId, email, username, password) VALUES (?, ?, ?, ?)';
-      const insertValues = [userData.firebaseId, userData.email, userData.username, userData.password];
+      const insertValues = [
+        userData.firebaseId,
+        userData.email,
+        userData.username,
+        userData.password,
+      ];
       await connection.query(insertQuery, insertValues);
       connection.release();
 
-      return h.response({ status:'success', userId : userRecord.uid}).code(201);
-    } catch (error){
+      return h.response({ status: 'success', userId: userRecord.uid }).code(201);
+    } catch (error) {
       if (error.code === 'auth/email-already-exists') {
         return h.response({ status: 'fail', message: 'Email is already registered' }).code(400);
-      } else {
-        return h.response({ status: 'fail', message: error.message }).code(500);
       }
+
+      return h.response({ status: 'fail', message: error.message }).code(500);
     }
   },
 
@@ -42,12 +47,12 @@ const authController = {
       const { idToken } = request.payload;
 
       const decodedToken = await admin.auth().verifyIdToken(idToken);
-      const uid = decodedToken.uid;
+      const { uid } = decodedToken.uid;
 
-      return h.response({ status:'success', userId: uid }).code(200);
+      return h.response({ status: 'success', userId: uid }).code(200);
     } catch (error) {
       console.error('Error during login:', error);
-      return h.response({ status:'fail', message: 'Invalid credentials' }).code(401);
+      return h.response({ status: 'fail', message: 'Invalid credentials' }).code(401);
     }
   },
 };
